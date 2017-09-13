@@ -205,13 +205,26 @@ public class StashRepository {
     }
 
     private Boolean isPullRequestMergable(StashPullRequestResponseValue pullRequest) {
-        if (trigger.isCheckMergeable() || trigger.isCheckNotConflicted()) {
+        if (trigger.isCheckMergeable() || trigger.isCheckNotConflicted() || trigger.isCheckProbeMergeStatus()) {
             StashPullRequestMergableResponse mergable = client.getPullRequestMergeStatus(pullRequest.getId());
             boolean res = true;
             if (trigger.isCheckMergeable())
                 res = res && mergable.getCanMerge();
             if (trigger.isCheckNotConflicted())
                 res = res && !mergable.getConflicted();
+
+            if (trigger.isCheckProbeMergeStatus()) {
+                /* Just probe the REST API, so Stash updates the refspecs
+                 *
+                 * Workaround for broken git references that appear due to PRs,
+                 * popping up in other jobs trying to use just the master branch.
+                 *
+                 * See https://issues.jenkins-ci.org/browse/JENKINS-35219 and
+                 * https://community.atlassian.com/t5/Bitbucket-questions/Change-pull-request-refs-after-Commit-instead-of-after-Approval/qaq-p/194702
+                 */
+                return true;
+            }
+
             return res;
         }
         return true;
