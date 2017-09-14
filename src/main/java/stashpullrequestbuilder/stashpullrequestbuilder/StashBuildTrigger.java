@@ -87,6 +87,47 @@ public class StashBuildTrigger extends Trigger<AbstractProject<?, ?>> {
             boolean checkMergeable,
             boolean mergeOnSuccess,
             boolean checkNotConflicted,
+            boolean onlyBuildOnComment,
+            String ciBuildPhrases,
+            boolean deletePreviousBuildFinishComments,
+            String targetBranchesToBuild,
+            boolean cancelOutdatedJobsEnabled
+    ) throws ANTLRException {
+        super(cron);
+        this.projectPath = projectPath;
+        this.cron = cron;
+        this.stashHost = stashHost;
+        this.credentialsId = credentialsId;
+        this.projectCode = projectCode;
+        this.repositoryName = repositoryName;
+        this.ciSkipPhrases = ciSkipPhrases;
+        this.cancelOutdatedJobsEnabled = cancelOutdatedJobsEnabled;
+        this.ciBuildPhrases = ciBuildPhrases == null ? "test this please" : ciBuildPhrases;
+        this.ignoreSsl = ignoreSsl;
+        this.checkDestinationCommit = checkDestinationCommit;
+        this.checkMergeable = checkMergeable;
+        this.mergeOnSuccess = mergeOnSuccess;
+        this.checkNotConflicted = checkNotConflicted;
+        this.checkProbeMergeStatus = (checkNotConflicted || checkMergeable);
+        this.onlyBuildOnComment = onlyBuildOnComment;
+        this.deletePreviousBuildFinishComments = deletePreviousBuildFinishComments;
+        this.targetBranchesToBuild = targetBranchesToBuild;
+    }
+
+    @DataBoundConstructor
+    public StashBuildTrigger(
+            String projectPath,
+            String cron,
+            String stashHost,
+            String credentialsId,
+            String projectCode,
+            String repositoryName,
+            String ciSkipPhrases,
+            boolean ignoreSsl,
+            boolean checkDestinationCommit,
+            boolean checkMergeable,
+            boolean mergeOnSuccess,
+            boolean checkNotConflicted,
             boolean checkProbeMergeStatus,
             boolean onlyBuildOnComment,
             String ciBuildPhrases,
