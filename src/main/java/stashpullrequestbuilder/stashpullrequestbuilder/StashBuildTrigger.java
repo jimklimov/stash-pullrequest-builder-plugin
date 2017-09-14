@@ -30,6 +30,7 @@ import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -63,10 +64,11 @@ public class StashBuildTrigger extends Trigger<AbstractProject<?, ?>> {
     private final boolean checkMergeable;
     private final boolean mergeOnSuccess;
     private final boolean checkNotConflicted;
-    private final boolean checkProbeMergeStatus;
     private final boolean onlyBuildOnComment;
     private final boolean deletePreviousBuildFinishComments;
     private final boolean cancelOutdatedJobsEnabled;
+
+    private boolean checkProbeMergeStatus;
 
     transient private StashPullRequestsBuilder stashPullRequestsBuilder;
 
@@ -108,52 +110,16 @@ public class StashBuildTrigger extends Trigger<AbstractProject<?, ?>> {
         this.checkMergeable = checkMergeable;
         this.mergeOnSuccess = mergeOnSuccess;
         this.checkNotConflicted = checkNotConflicted;
-        this.checkProbeMergeStatus = (checkNotConflicted || checkMergeable);
         this.onlyBuildOnComment = onlyBuildOnComment;
         this.deletePreviousBuildFinishComments = deletePreviousBuildFinishComments;
         this.targetBranchesToBuild = targetBranchesToBuild;
     }
 
-    @DataBoundConstructor
-    public StashBuildTrigger(
-            String projectPath,
-            String cron,
-            String stashHost,
-            String credentialsId,
-            String projectCode,
-            String repositoryName,
-            String ciSkipPhrases,
-            boolean ignoreSsl,
-            boolean checkDestinationCommit,
-            boolean checkMergeable,
-            boolean mergeOnSuccess,
-            boolean checkNotConflicted,
-            boolean checkProbeMergeStatus,
-            boolean onlyBuildOnComment,
-            String ciBuildPhrases,
-            boolean deletePreviousBuildFinishComments,
-            String targetBranchesToBuild,
-            boolean cancelOutdatedJobsEnabled
-    ) throws ANTLRException {
-        super(cron);
-        this.projectPath = projectPath;
-        this.cron = cron;
-        this.stashHost = stashHost;
-        this.credentialsId = credentialsId;
-        this.projectCode = projectCode;
-        this.repositoryName = repositoryName;
-        this.ciSkipPhrases = ciSkipPhrases;
-        this.cancelOutdatedJobsEnabled = cancelOutdatedJobsEnabled;
-        this.ciBuildPhrases = ciBuildPhrases == null ? "test this please" : ciBuildPhrases;
-        this.ignoreSsl = ignoreSsl;
-        this.checkDestinationCommit = checkDestinationCommit;
-        this.checkMergeable = checkMergeable;
-        this.mergeOnSuccess = mergeOnSuccess;
-        this.checkNotConflicted = checkNotConflicted;
+    @DataBoundSetter
+    public void setCheckProbeMergeStatus(
+        boolean checkProbeMergeStatus
+    ) {
         this.checkProbeMergeStatus = checkProbeMergeStatus;
-        this.onlyBuildOnComment = onlyBuildOnComment;
-        this.deletePreviousBuildFinishComments = deletePreviousBuildFinishComments;
-        this.targetBranchesToBuild = targetBranchesToBuild;
     }
 
     public String getStashHost() {
