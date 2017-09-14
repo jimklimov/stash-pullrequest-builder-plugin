@@ -20,7 +20,9 @@ public class StashAditionalParameterEnvironmentContributor extends EnvironmentCo
                     "destinationRepositoryName",
                     "pullRequestTitle",
                     "sourceCommitHash",
-                    "destinationCommitHash"));
+                    "destinationCommitHash",
+                    "stashGitSSH",
+                    "stashGitWEB"));
 
     @Override
     public void buildEnvironmentFor(@Nonnull Run r, @Nonnull EnvVars envs, @Nonnull TaskListener listener) throws IOException, InterruptedException {

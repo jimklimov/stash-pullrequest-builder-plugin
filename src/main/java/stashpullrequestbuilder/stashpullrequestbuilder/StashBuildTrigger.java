@@ -223,6 +223,8 @@ public class StashBuildTrigger extends Trigger<AbstractProject<?, ?>> {
         values.add(new StringParameterValue("pullRequestTitle", cause.getPullRequestTitle()));
         values.add(new StringParameterValue("sourceCommitHash", cause.getSourceCommitHash()));
         values.add(new StringParameterValue("destinationCommitHash", cause.getDestinationCommitHash()));
+        values.add(new StringParameterValue("stashGitSSH", cause.getStashGitSSH()));
+        values.add(new StringParameterValue("stashGitWEB", cause.getStashGitWEB()));
 
         Map<String, String> additionalParameters = cause.getAdditionalParameters();
         if(additionalParameters != null){

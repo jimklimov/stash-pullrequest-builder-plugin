@@ -28,6 +28,8 @@ The plugin makes available to the job the following parameter variables:
 - `${destinationRepositoryName}`
 - `${sourceCommitHash}`
 - `${destinationCommitHash}`
+- `${stashGitSSH}`
+- `${stashGitWEB}`
 
 ## Creating a Job
 

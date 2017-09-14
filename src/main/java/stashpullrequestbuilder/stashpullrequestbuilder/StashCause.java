@@ -20,7 +20,11 @@ public class StashCause extends Cause {
     private final String destinationCommitHash;
     private final String buildStartCommentId;
     private final String pullRequestVersion;
+    /* This is the REST API base URL: */
     private final String stashHost;
+    /* This details the host for Git checkouts, may be not HTTP: */
+    private final String stashGitSSH;
+    private final String stashGitWEB;
     private final Map<String,String> additionalParameters;
 
     public StashCause(String stashHost,
@@ -36,6 +40,8 @@ public class StashCause extends Cause {
                           String destinationCommitHash,
                           String buildStartCommentId,
                           String pullRequestVersion,
+                          String stashGitSSH,
+                          String stashGitWEB,
                           Map<String,String> additionalParameters) {
         this.sourceBranch = sourceBranch;
         this.targetBranch = targetBranch;
@@ -50,6 +56,8 @@ public class StashCause extends Cause {
         this.buildStartCommentId = buildStartCommentId;
         this.pullRequestVersion = pullRequestVersion;
         this.stashHost = stashHost.replaceAll("/$", "");
+        this.stashGitSSH = stashGitSSH;
+        this.stashGitWEB = stashGitWEB;
         this.additionalParameters = additionalParameters;
     }
 
@@ -93,6 +101,10 @@ public class StashCause extends Cause {
     public String getDestinationCommitHash() { return destinationCommitHash; }
 
     public String getBuildStartCommentId() { return buildStartCommentId; }
+
+    public String getStashGitSSH() { return stashGitSSH; }
+
+    public String getStashGitWEB() { return stashGitWEB; }
 
     public Map<String,String> getAdditionalParameters() { return additionalParameters; }
 
