@@ -44,8 +44,8 @@ Select *Git* then configure:
 Select *Stash Pull Request Builder* then configure:
 
 - **Cron**: must be specified. eg: every 2 minute `H/2 * * * *`
-- **Stash REST API Host (HTTP URL)**: the *http* or *https* URL of the Stash host (NOT *ssh*). eg: *https://example.com*
-- **Stash Credentials**: Select or Add the login username/password for the Stash Host (NOT ssh key)
+- **Stash URL**: the *http* or *https* URL of the Stash REST API Host (NOT *ssh*). eg: *https://example.com*
+- **Stash Credentials**: Select or Add the login username/password for the Stash REST API Host (NOT ssh key)
 - **Project**: abbreviated project code. eg: *PRJ* or *~user*
 - **RepositoryName**: eg: *Repo*
 
