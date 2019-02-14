@@ -206,6 +206,11 @@ public class StashRepository {
 
     private Boolean isPullRequestMergable(StashPullRequestResponseValue pullRequest) {
         if (trigger.isCheckMergeable() || trigger.isCheckNotConflicted() || trigger.isCheckProbeMergeStatus()) {
+            /* Request PR status from Stash, and consult our configuration
+             * toggles on whether we care about certain verdicts in that
+             * JSON answer, parsed into fields of the "response" object.
+             * See example in StashApiClientTest.java.
+             */
             StashPullRequestMergableResponse mergable = client.getPullRequestMergeStatus(pullRequest.getId());
             boolean res = true;
             if (trigger.isCheckMergeable())
