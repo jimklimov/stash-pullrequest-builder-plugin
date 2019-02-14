@@ -54,8 +54,8 @@ Select *Stash Pull Request Builder* then configure:
 - Build PR targetting only these branches: common separated list of branch names (or regexes). Blank for all.
 - Rebuild if destination branch changes:
 - Build only if Stash reports no conflicts: this should be set if using the merge branch to avoid issues with out of data merge branch in stash
-- Build only if PR is mergeable (note this will stop the PR being built if you have required approvers limit set >0 and the PR hasn't been approved)
-- Probe Stash for merge status: This probes the Stash REST API endpoint that causes recalculation of Git refspecs (see [JENKINS-35219](https://issues.jenkins-ci.org/browse/JENKINS-35219) and [Atlassian KB 239988](https://answers.atlassian.com/questions/239988/change-pull-request-refs-after-commit-instead-of-after-approval-or-workaround) for details). Has no impact on proceeding with the build itself, unlike the "Build only if..." options above.
+- Build only if Stash reports PR is mergeable (note this will stop the PR being built if you have required approvers limit set >0 and the PR hasn't been approved)
+- Probe Stash for merge status: This just probes the Stash REST API endpoint that causes recalculation of Git refspecs (see [JENKINS-35219](https://issues.jenkins-ci.org/browse/JENKINS-35219) and [Atlassian KB 239988](https://answers.atlassian.com/questions/239988/change-pull-request-refs-after-commit-instead-of-after-approval-or-workaround) for details). Use this if you encounter problems with stale commits being built, but don't want to skip builds based on the PR status (as would be the case with the two options above). Also note that this option does not have any special effect if you have enabled one of the two options above.
 - Cancel outdated jobs
 - CI Skip Phrases: default: "NO TEST"
 - Only build when asked (with test phrase):
