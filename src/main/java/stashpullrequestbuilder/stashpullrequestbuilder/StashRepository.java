@@ -215,9 +215,12 @@ public class StashRepository {
 
             if (trigger.isCheckProbeMergeStatus()) {
                 /* Just probe the REST API, so Stash updates the refspecs
+                 * (it does so lazily to reduce server load, until someone
+                 * requests a refresh).
                  *
-                 * Workaround for broken git references that appear due to PRs,
-                 * popping up in other jobs trying to use just the master branch.
+                 * This is a workaround for a case of broken git references
+                 * that appear due to pull requests, popping up in other jobs
+                 * trying to use e.g. just the master branch.
                  *
                  * See https://issues.jenkins-ci.org/browse/JENKINS-35219 and
                  * https://community.atlassian.com/t5/Bitbucket-questions/Change-pull-request-refs-after-Commit-instead-of-after-Approval/qaq-p/194702
